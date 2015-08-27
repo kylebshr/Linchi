@@ -39,8 +39,8 @@ internal struct RegEx {
         /// Corrsponding regex pattern, inside brackets.
         var description : String {
             switch self {
-            case Alpha     : return "[a-zA-Z0-9]"
-            case AlphaNum  : return "[a-zA-Z]"
+            case AlphaNum  : return "[a-zA-Z0-9]"
+            case Alpha     : return "[a-zA-Z]"
             case Digits    : return "[0-9]"
             case Printable : return "[^\\p{Z}\\p{C}]"
             }
