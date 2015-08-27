@@ -54,14 +54,16 @@ public struct HTTPRequest : CustomStringConvertible {
 
     /// A human readable description of the request
     public var description : String {
-        var s : String = ""
-        s += "method: \(method)\n"
-        s += "url: \(url)\n"
-        s += "headers: \(headers)\n"
-        s += "body: \(body)\n"
-        s += "method parameters: \(methodParameters)\n"
-        s += "url parameters: \(urlParameters)\n"
-        return s
+        
+        return [
+            "method: \(method)",
+            "url: \(url)",
+            "headers: \(headers)",
+            "body: \(body)",
+            "method parameters: \(methodParameters)",
+            "url parameters: \(urlParameters)"
+        ].joinWithSeparator("\n")
+        
     }
 }
 
