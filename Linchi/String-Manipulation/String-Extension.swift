@@ -13,23 +13,22 @@ extension String {
     }
     
     /// Returns the same string with the first `n` characters removed
-    internal func removeFirst(n: Int) -> String {
-        var chars = characters
-        chars.removeFirst(n)
-        return String(chars)
+    internal func removeFirst(n: Int = 1) -> String {
+        return String(characters.dropFirst(n))
     }
     
     /// Returns the maximal substrings of `self`, in order, around a separator character.
     internal func split(c: Character) -> [String] {
         return characters.split(c).map(String.init)
     }
-    
-    // inefficient
+
     /// Returns the two maximal substrings of `self`, in order, around the first occurence of a separator character
     internal func splitOnce(c: Character) -> (String, String)? {
-        let splitted = split(c)
-        guard splitted.count > 1 else { return nil }
-        return (splitted.first!, splitted[1 ..< splitted.count].reduce("") {$0 + $1} )
+        guard let index = characters.indexOf(c) else { return nil }
+        return (
+            String(characters.prefixUpTo(index)),
+            String(characters.suffixFrom(index.successor()))
+        )
     }
     
     /// Returns `true` iff the character `c` is present in `self`
@@ -44,13 +43,7 @@ extension String {
 
     /// Returns a copy of `self`, except all instances of "+" have been replaced by " " (space) 
     internal func newByReplacingPlusesBySpaces() -> String {
-
-        var bytes = ""
-        for c in characters {
-            if c == "+" { bytes.append(Character(" ")) }
-            else { bytes.append(c) }
-        }
-        return bytes
+        return split("+").joinWithSeparator(" ")
     }
     
     /// Creates a String from an array of bytes, assuming an UTF-8 encoding
