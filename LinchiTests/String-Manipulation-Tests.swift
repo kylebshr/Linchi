@@ -87,10 +87,36 @@ class String_Manipulation_Tests : XCTestCase {
         tests.forEach { XCTAssertTrue($0.initial.split($0.separator) == $0.expected) }
     }
 
+    func testSplitOnce() {
+        let tests : [(initial: String, separator: Character, expected: (String, String)?)] = [
+            ("", "c", nil), ("aa", "a", ("", "a")), ("baaaa", "a", ("b", "aaa")),
+            ("a∂c", "∂", ("a", "c")), ("abcdef", "g", nil), ("s1=s2=s3", "=", ("s1", "s2=s3"))
+        ]
+        
+        tests.forEach {
+            let splitted = $0.initial.splitOnce($0.separator)
+            XCTAssertEqual(splitted?.0, $0.expected?.0)
+            XCTAssertEqual(splitted?.1, $0.expected?.1)
+        }
+    }
+    
+    func testNewByReplacingPlusesBySpaces() {
+        
+        let tests : [(initial: String, expected: String)] = [
+            ("", ""), ("abc∂êƒ~Ï®†", "abc∂êƒ~Ï®†"), ("+++", "   "),
+            ("Loïc+Jean Pierre+Ronald", "Loïc Jean Pierre Ronald")
+        ]
+        
+        tests.forEach {
+            XCTAssertEqual($0.initial.newByReplacingPlusesBySpaces(), $0.expected)
+        }
+        
+    }
+    
     func testRemoveFirst() {
         
         let tests : [(initial: String, n: Int, expected: String)] = [
-            ("a", 0, "a"), ("a", 1, ""),
+            ("a", 0, "a"), ("a", 1, ""), ("a", 2, ""),
             ("Hello", 3, "lo"), ("∆: [a-zA-Z]*", 3, "[a-zA-Z]*")
         ]
         

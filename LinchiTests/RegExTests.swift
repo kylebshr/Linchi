@@ -26,6 +26,11 @@ class RegExTests: XCTestCase {
         let all : [(re: RegEx, match: String, dontmatch: String)] = [
             (RegEx("[a-zA-Z]+")!, "HelloWorld", "Hello World"),
             (RegEx("[a-zA-Z]?")!, "", "&"),
+            (RegEx("\(RegEx.CharClass.AlphaNum)+")!, "AlphaNum073", "Space!"),
+            (RegEx("\(RegEx.CharClass.AlphaNum)+")!, "litteral", "littéral"),
+            (RegEx("\(RegEx.CharClass.Alpha)+")!, "AlphaNum", "AlphaNum083"),
+            (RegEx("\(RegEx.CharClass.Digits)+")!, "03836", "83739c"),
+            (RegEx("\(RegEx.CharClass.Printable)+")!, "∂Ò !%    ", ""),
             (RegEx("static")!, "static", "static "),
             (RegEx("[abc]+")!, "aa", "ef")
         ]
