@@ -20,7 +20,7 @@ class DemoServer : HTTPServer {
         
         super.init()
 
-        try! cachedFiles.addFilesInDirectory(basePath + "allFiles/", url: "static/")
+        try! cachedFiles.addFilesInDirectory(basePath + "static/", url: "static/")
         self.addFiles(cachedFiles)
         
         guard let page404 = cachedFiles["static/404.html"] else { fatalError() }
