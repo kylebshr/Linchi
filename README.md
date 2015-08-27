@@ -28,6 +28,7 @@ Foundation anyway, please add a TODO above the lines that depend on it so we rem
 ## Example
 
 There is a very simple website included in the app that you can use to familiarise yourself with Linchi.
+But don't forget to change the value of DemoServer.basePath to the path of the project on your machine before building it. The demo server will start accepting connection on port 8080. You can access the website on localhost:8080
 
 ## Inspiration
 
