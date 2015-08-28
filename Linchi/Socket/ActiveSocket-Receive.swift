@@ -72,7 +72,7 @@ extension ActiveSocket {
         
         while received < size {
             let receivedBytes = recv(fd, &buffer, (size - received), 0)
-            guard receivedBytes != -1 else { throw SocketError.ReceiveFailed }
+            guard receivedBytes != -1 else { throw ActiveSocket.Error.ReceiveFailed }
             received += receivedBytes
         }
         return String.fromUTF8Bytes(buffer)

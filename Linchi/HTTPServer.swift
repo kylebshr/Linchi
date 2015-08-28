@@ -20,7 +20,7 @@ public class HTTPServer {
         passiveSocket = PassiveSocket(listeningToPort: port)!
         print("Server started.")
 
-        while let activeSocket = ActiveSocket(fromPassiveSocket: passiveSocket) {
+        while let activeSocket = try? ActiveSocket(fromPassiveSocket: passiveSocket) {
             // TODO: do this asynchronously
             self.handleSocket(activeSocket)
         }

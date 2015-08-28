@@ -35,19 +35,12 @@ extension Socket {
     }
 }
 
+enum SocketError : ErrorType {
+    case CannotSetOption(option: SocketOption)
+}
+
 extension Socket {
     internal var hashValue : Int { return fd.hashValue }
 }
 func == <T : Socket> (lhs: T, rhs: T) -> Bool { return lhs.fd == rhs.fd }
-
-/// ErrorType related to the Socket type
-internal enum SocketError : ErrorType {
-    case BindFailed
-    case ListenFailed
-    case CannotSetOption(option: SocketOption)
-    case WriteFailed
-    case ReceiveFailed
-}
-
-
 

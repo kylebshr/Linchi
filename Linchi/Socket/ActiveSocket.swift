@@ -21,17 +21,22 @@ internal struct ActiveSocket : Socket {
     
     Please note that it is a blocking function if no pending connections are available.
     */
-    init?(fromPassiveSocket sock: PassiveSocket) {
+    init(fromPassiveSocket sock: PassiveSocket) throws {
         
         var addr = sockaddr()
         var len: socklen_t = 0
         
         self.fd = accept(sock.fd, &addr, &len)
-        guard self.fd != -1 else { return nil }
+        guard self.fd != -1 else { throw ActiveSocket.Error.SocketNotAccepted }
 
-        do    { try applyOptions(SocketOption.NoSigPipe) }
-        catch { return nil }
+        try applyOptions(SocketOption.NoSigPipe)
     }
     
+    enum Error : ErrorType {
+        case CannotSetOption(option: SocketOption)
+        case WriteFailed
+        case ReceiveFailed
+        case SocketNotAccepted
+    }
 }
 

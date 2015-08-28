@@ -24,7 +24,7 @@ internal struct PassiveSocket : Socket {
     - Bind it to the loopback address and given port
     - Make it listen for connections
     
-    The initialization will fail and throw the appropriate SocketError if any of these steps fail.
+    The initialization will fail and print the reason of the failure if any of these steps fail.
     */
     init?(listeningToPort port: in_port_t) {
 
@@ -57,8 +57,8 @@ internal struct PassiveSocket : Socket {
                 return
             }
             catch SocketError.CannotSetOption(option: let opt) { print("Cannot set option: \(opt)") }
-            catch SocketError.BindFailed                       { print("Bind failed")}
-            catch SocketError.ListenFailed                     { print("Listen failed") }
+            catch PassiveSocket.Error.BindFailed               { print("Bind failed")}
+            catch PassiveSocket.Error.ListenFailed             { print("Listen failed") }
             catch {
                 print("Could not create passive socket for unknown reasons")
             }
@@ -69,12 +69,19 @@ internal struct PassiveSocket : Socket {
     
     private func bindToAddress(addr: addrinfo) throws {
         let bindSuccess = bind(fd, addr.ai_addr, addr.ai_addrlen)
-        guard bindSuccess != -1 else { throw SocketError.BindFailed }
+        guard bindSuccess != -1 else { throw PassiveSocket.Error.BindFailed }
     }
 
     private func listenToMaxPendingConnections(p: Int32) throws {
         let success = listen(fd, p)
-        if success == -1 { throw SocketError.ListenFailed }
+        if success == -1 { throw PassiveSocket.Error.ListenFailed }
+    }
+    
+    enum Error : ErrorType {
+        case CannotGetAddress
+        case SocketNotAccepted
+        case BindFailed
+        case ListenFailed
     }
 }
 

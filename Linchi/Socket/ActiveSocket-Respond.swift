@@ -31,7 +31,7 @@ extension ActiveSocket {
             try writeData(content.toUTF8Bytes())
             try writeData(response.body)
         }
-        catch SocketError.WriteFailed {
+        catch ActiveSocket.Error.WriteFailed {
             print("could not respond because send() failed")
             release()
         }
@@ -47,7 +47,7 @@ extension ActiveSocket {
         
         while sent < data.count {
             let sentBytes = send(fd, dataBuffer + sent, Int(data.count - sent), 0)
-            guard sentBytes != -1 else { throw SocketError.WriteFailed }
+            guard sentBytes != -1 else { throw ActiveSocket.Error.WriteFailed }
             sent += sentBytes
         }
     }
