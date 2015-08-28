@@ -29,17 +29,6 @@ extension UInt8 {
         }
     }
     
-    /**
-    Returns:
-    - ASCII value for (0, 1, ..., E, F) if input is (0, 1, ..., 14, 15)
-    - `nil` otherwise
-    */
-    private func asciiValue(hexNumber: UInt8) -> UInt8? {
-        guard hexNumber < 16 else { return nil }
-        return hexNumber < 10 ? hexNumber + 48 : hexNumber + 55
-    }
-
-    
     /** 
     Returns the value of the hexadecimal number `"0x(fst)(snd)"` if `fst` and `snd`
     are ASCII values for hexadecimal digits. Returns nil otherwise.
@@ -47,7 +36,7 @@ extension UInt8 {
     __Example__:
     
     `let fst = 67 // 'C'`
-    
+
     `let snd = 50 // '2'`
     
     `// UInt8.fromHexRepresentation(fst, snd) == 194`
