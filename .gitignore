@@ -1,4 +1,16 @@
+# Ignore tmp directory (where unit test results are written to)
+tmp/
+test-reports/
 
-*.xcuserstate
+# Ignore build directory (where Xcode places it's build files when ran from the command line)
+build/
 
-Linchi.xcodeproj/project.xcworkspace/xcuserdata/oisinkidney.xcuserdatad/UserInterfaceState.xcuserstate
+# Ignore target directory (where the maven plugin places it's build files)
+target/
+
+# Ignore lcov Files
+*.info
+
+# Ignore xcuserdata
+xcuserdata/
+
