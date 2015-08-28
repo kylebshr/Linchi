@@ -10,7 +10,7 @@ extension String {
     /// Returns the same string with every character from `chars` removed
     internal func newByTrimmingCharactersContainedInString(chars: String) -> String {
         let charSet = Set(chars.characters)
-        return String(characters.filter { !charSet.contains($0) })
+        return String(characters.lazy.filter { !charSet.contains($0) })
     }
     
     /// Returns the same string with the first `n` characters removed
