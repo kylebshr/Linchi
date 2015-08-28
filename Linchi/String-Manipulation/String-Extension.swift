@@ -44,12 +44,7 @@ extension String {
 
     /// Returns a copy of `self`, except all instances of "+" have been replaced by " " (space) 
     internal func newByReplacingPlusesBySpaces() -> String {
-        var bytes = ""
-        for c in characters {
-            if c == "+" { bytes.append(Character(" ")) }
-            else { bytes.append(c) }
-        }
-        return bytes
+        return String(characters.lazy.map { c in c == "+" ? " " : c } )
     }
     
     /// Creates a String from an array of bytes, assuming an UTF-8 encoding
