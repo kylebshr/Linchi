@@ -15,7 +15,7 @@ class DemoServer : HTTPServer {
     override init() {
         
         // replace with correct path for you
-        self.basePath = "/Users/loiclecrenier/Linchi/"
+        self.basePath = "\(PROJECT_DIR)/"
         self.cachedFiles = FileCache()
         
         super.init()

@@ -56,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		27904ACD1B90C63E009B8850 /* Linchi-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Linchi-Bridging-Header.h"; path = "String-Manipulation/Linchi-Bridging-Header.h"; sourceTree = "<group>"; };
 		CDDAEEAE1B8F636000CB7C68 /* Linchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Linchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDDAEEBF1B8F636000CB7C68 /* LinchiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinchiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDDAEEC51B8F636000CB7C68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -149,6 +150,7 @@
 				CDDAEF271B8F659200CB7C68 /* String-Manipulation */,
 				CDDAEF321B8F659200CB7C68 /* URLRouter */,
 				CDDAEEFE1B8F641E00CB7C68 /* HTTPServer.swift */,
+				27904ACD1B90C63E009B8850 /* Linchi-Bridging-Header.h */,
 				CDDAEF2C1B8F659200CB7C68 /* Test-App */,
 			);
 			path = Linchi;
@@ -286,6 +288,7 @@
 		CDDAEEA61B8F636000CB7C68 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Loïc Lecrenier";
 				TargetAttributes = {
@@ -479,22 +482,33 @@
 		CDDAEEC91B8F636000CB7C68 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"PROJECT_DIR=@\\\"$(PROJECT_DIR)\\\"",
+				);
 				INFOPLIST_FILE = Linchi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = loicl.Linchi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Linchi/String-Manipulation/Linchi-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		CDDAEECA1B8F636000CB7C68 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "PROJECT_DIR=@\\\"$(PROJECT_DIR)\\\"";
 				INFOPLIST_FILE = Linchi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = loicl.Linchi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Linchi/String-Manipulation/Linchi-Bridging-Header.h";
 			};
 			name = Release;
 		};
