@@ -22,10 +22,10 @@ class String_Manipulation_Tests : XCTestCase {
     }
     
     private func testPercentEncoding(initial: String, percentEncodedWithUppercaseHexadecimalLetters expected: String) {
-        XCTAssertTrue(initial.newByAddingPercentEncoding() == expected)
-        XCTAssertTrue(expected.newByRemovingPercentEncoding() == initial)
-        XCTAssertTrue(initial.newByAddingPercentEncoding().newByRemovingPercentEncoding() == initial)
-        XCTAssertTrue(expected.newByRemovingPercentEncoding().newByAddingPercentEncoding() == expected)
+        XCTAssertEqual(initial.newByAddingPercentEncoding(), expected)
+        XCTAssertEqual(expected.newByRemovingPercentEncoding(), initial)
+        XCTAssertEqual(initial.newByAddingPercentEncoding().newByRemovingPercentEncoding(), initial)
+        XCTAssertEqual(expected.newByRemovingPercentEncoding().newByAddingPercentEncoding(), expected)
     }
     
     func testPercentEncoding() {
@@ -47,7 +47,7 @@ class String_Manipulation_Tests : XCTestCase {
         
         misc.forEach {
             testPercentEncoding($0.initial, percentEncodedWithUppercaseHexadecimalLetters: $0.afterAdding)
-            XCTAssertTrue($0.beforeRemoving.newByRemovingPercentEncoding() == $0.initial)
+            XCTAssertEqual($0.beforeRemoving.newByRemovingPercentEncoding(), $0.initial)
         }
         
         let reservedCharacters : [(initial: String, afterAdding: String)] = [
@@ -72,7 +72,7 @@ class String_Manipulation_Tests : XCTestCase {
             ("abcdabcd", "bc", "adad"),
             ("æ‡ÒÂê∂", "æ∂", "‡ÒÂê"),
         ]
-        tests.forEach { XCTAssertTrue($0.initial.newByTrimmingCharactersContainedInString($0.trimming) == $0.expected) }
+        tests.forEach { XCTAssertEqual($0.initial.newByTrimmingCharactersContainedInString($0.trimming), $0.expected) }
     }
     
     func testSplit() {
@@ -84,7 +84,7 @@ class String_Manipulation_Tests : XCTestCase {
             ("bababab", "b", ["a", "a", "a"]),
         ]
         
-        tests.forEach { XCTAssertTrue($0.initial.split($0.separator) == $0.expected) }
+        tests.forEach { XCTAssertEqual($0.initial.split($0.separator), $0.expected) }
     }
 
     func testSplitOnce() {
@@ -121,9 +121,43 @@ class String_Manipulation_Tests : XCTestCase {
         ]
         
         tests.forEach {
-            XCTAssertTrue($0.0.removeFirst($0.1) == $0.2)
+            XCTAssertEqual($0.0.removeFirst($0.1), $0.2)
         }
-    }    
+    }
+    
+    func testToUTF8Bytes() {
+        
+        let tests : [(initial: String, expected: [UInt8])] = [
+            ("", []), ("abc", [97, 98, 99]), ("∂", [226, 136, 130]), ("`^¨ ", [96, 94, 194, 168, 32])
+        ]
+        
+        tests.forEach {
+            XCTAssertEqual($0.initial.toUTF8Bytes(), $0.expected)
+        }
+    }
+    
+    func testFromUTF8Bytes() {
+        
+        let tests : [String] = ["", "Hello world!", "îÌß”»"]
+        
+        tests.forEach {
+            XCTAssertEqual(String.fromUTF8Bytes($0.toUTF8Bytes()), $0)
+        }
+    }
+    
+    func testContains() {
+        
+        let tests : [(string: String, character: Character, expected: Bool)] = [
+            ("", "c", false), ("é", "e", false), ("è", "`", false), ("é", "é", true),
+            ("abcdef", "d", true), ("abcabc", "a", true), ("ah∂", "∂", true)
+        ]
+        
+        tests.forEach {
+            XCTAssertEqual($0.string.contains($0.character), $0.expected)
+        }
+        
+    }
+    
 }
 
 
