@@ -39,7 +39,7 @@ extension String {
     
     /// Returns the UTF8 representation of `self`
     public func toUTF8Bytes() -> [UInt8] {
-        return utf8.map{$0}
+        return Array(utf8)
     }
 
     /// Returns a copy of `self`, except all instances of "+" have been replaced by " " (space) 
